@@ -1,6 +1,6 @@
 const express = require('express');
 const Joi = require('joi');
-const validateRequest = require('../_middleware/validate-request');
+const validateRequest = require('../middleware/validate-request');
 const userService = require('../services/user.service');
 
 
@@ -20,10 +20,11 @@ exports.authenticate = (req, res, next) => {
 
 exports.registerSchema = (req, res, next) => {
     const schema = Joi.object({
-        firstName: Joi.string().required(),
-        lastName: Joi.string().required(),
+        firstname: Joi.string().required(),
+        lastname: Joi.string().required(),
         username: Joi.string().required(),
-        password: Joi.string().min(6).required()
+        password: Joi.string().min(6).required(),
+        role: Joi.string().default('non-admin')
     });
     validateRequest(req, next, schema);
 }
@@ -52,8 +53,8 @@ exports.getById = (req, res, next) => {
 
 exports.updateSchema = (req, res, next) => {
     const schema = Joi.object({
-        firstName: Joi.string().empty(''),
-        lastName: Joi.string().empty(''),
+        firstname: Joi.string().empty(''),
+        lastname: Joi.string().empty(''),
         username: Joi.string().empty(''),
         password: Joi.string().min(6).empty('')
     });

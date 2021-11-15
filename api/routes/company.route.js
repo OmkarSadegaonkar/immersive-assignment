@@ -2,7 +2,7 @@
 module.exports = app => {
     const companies = require("../controllers/company.controller");
   
-    var router = require("express").Router();
+    const router = require("express").Router();
   
     // Create a new Company
     router.post("/", companies.create);
