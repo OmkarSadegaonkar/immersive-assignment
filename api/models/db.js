@@ -1,48 +1,20 @@
 const mysql = require("mysql");
 const dbConfig = require("../config/db.config");
+const { Sequelize } = require('sequelize');
 
-// Create a connection to the database
-const connection = mysql.createConnection({
-  host: dbConfig.HOST,
-  user: dbConfig.USER,
-  password: dbConfig.PASSWORD,
-  database: dbConfig.DB
-});
+module.exports = db = {};
 
-// open the MySQL connection
-connection.connect(error => {
-  if (error) throw error;
-  console.log("Successfully connected to the database.");
-});
+initialize();
 
-module.exports = connection;
+async function initialize() {
+    // create db if it doesn't already exist
+    const { host, port, user, password, database } = dbConfig.database;
+    const connection = await mysql.createConnection({ host, port, user, password });
+    await connection.query(`CREATE DATABASE IF NOT EXISTS \`${database}\`;`);
 
+    // connect to db
+    const sequelize = new Sequelize(database, user, password, { dialect: 'mysql' });
 
-// CREATE TABLE companies (
-//     id TINYINT(1) UNSIGNED NOT NULL AUTO_INCREMENT,
-//     name VARCHAR(80) NOT NULL,
-//     email varchar(80) null,
-//     phone int null,
-//     website varchar(80) null,
-//     PRIMARY KEY(id),
-//     UNIQUE KEY `name_UNIQUE` (`name`),
-//     KEY `key_1` (`id`,`name`)
-// )
-// ENGINE=InnoDB;
-
-
-// CREATE TABLE employees (
-//     id TINYINT(3) UNSIGNED NOT NULL AUTO_INCREMENT,
-//     firstname VARCHAR(100) NOT NULL,
-//     lastname VARCHAR(100) NOT NULL,
-//     company VARCHAR(80),
-//     email VARCHAR(100) NULL,
-//     phone int null,
-//     PRIMARY KEY(id),
-//     KEY `employees_fk1` (`company`),
-//     CONSTRAINT `employees_fk1` FOREIGN KEY (`company`) REFERENCES `companies` (`name`)
-//     ON DELETE NO ACTION
-//     -- INDEX networks_index2471(name),
-// --     INDEX networks_index2472(director_id, director_name)
-// )
-// ENGINE=InnoDB;
+    // sync all models with database
+    await sequelize.sync();
+}

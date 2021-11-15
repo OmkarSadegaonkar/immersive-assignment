@@ -15,12 +15,18 @@ app.use(express.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
+
 // simple route
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to bezkoder application." });
 });
 
+
+const db = require("./api/models");
+db.sequelize.sync();
+
 require("./api/routes/company.route")(app);
+require("./api/routes/user.route")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
