@@ -3,7 +3,7 @@ const db = require("../models");
 const Company = db.companies;
 
 // Create and Save a new Company
-exports.create = (req, res) => {
+const create = (req, res) => {
   // Validate request
   if (!req.body) {
     res.status(400).send({
@@ -23,7 +23,7 @@ exports.create = (req, res) => {
 };
 
 // Retrieve all Companies from the database (with condition).
-exports.findAll = (req, res) => {
+const findAll = (req, res) => {
     Company.findAll()
     .then(data => {
       res.send(data);
@@ -37,7 +37,7 @@ exports.findAll = (req, res) => {
 };
 
 // Find a single Company with a id
-exports.findOne = (req, res) => {
+const findOne = (req, res) => {
     const id = req.params.id;
 
   Company.findByPk(id)
@@ -58,7 +58,7 @@ exports.findOne = (req, res) => {
 };
 
 // Update a Company identified by the id in the request
-exports.update = (req, res) => {
+const update = (req, res) => {
     const id = req.params.id;
 
     Company.update(req.body, {
@@ -83,7 +83,7 @@ exports.update = (req, res) => {
 };
 
 // Delete a Company with the specified id in the request
-exports.delete = (req, res) => {
+const deleteOne = (req, res) => {
     const id = req.params.id;
 
   Company.destroy({
@@ -108,7 +108,7 @@ exports.delete = (req, res) => {
 };
 
 // Delete all Companies from the database.
-exports.deleteAll = (req, res) => {
+const deleteAll = (req, res) => {
     Company.destroy({
         where: {},
         truncate: false
@@ -123,3 +123,12 @@ exports.deleteAll = (req, res) => {
           });
         });
 };
+
+module.exports = {
+  create,
+  deleteAll,
+  deleteOne,
+  update,
+  findOne,
+  findAll
+}

@@ -26,6 +26,7 @@ const db = require("./api/models");
 db.sequelize.sync();
 
 require("./api/routes/company.route")(app);
+require("./api/routes/employee.route")(app);
 require("./api/routes/user.route")(app);
 
 // set port, listen for requests

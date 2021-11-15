@@ -72,8 +72,6 @@ async function _delete(id) {
     await user.destroy();
 }
 
-// helper functions
-
 async function getUser(id) {
     const user = await db.user.findByPk(id);
     if (!user) throw 'User not found';
