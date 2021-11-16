@@ -1,30 +1,10 @@
 const expect = require('chai').expect;
 const { app, server } = require('../../../server');
 const request = require('supertest');
+const { newUser, newUserAdmin, newUserBad } = require('../../fixtures/mock-data');
 
 describe('User API CRUD', () => {
-    const newUser = {
-        "firstname": "Joe",
-        "lastname": "Smith",
-        "username": "joe",
-        "password": "joe-password"
-    };
-
-    const newUserAdmin = {
-        "firstname": "Lara",
-        "lastname": "Datta",
-        "username": "Lara",
-        "password": "lara-password",
-        "role": "admin"
-    };
-
-    const newUserBad = {
-        "firstname": "Joe 1",
-        "lastname": "Smith",
-        "username": "joe",
-        "password": "joe"
-    }
-
+    
     describe('#POST /register', function () {
         it('should register a normal user', function (done) {
             request(app).post('/api/users/register')

@@ -1,21 +1,9 @@
 const expect = require('chai').expect;
 const { app, server } = require('../../../server');
 const request = require('supertest');
+const { newCompany, updatedCompany } = require('../../fixtures/mock-data');
 
 describe('Company CRUD API', () => {
-  const newCompany = {
-    "name": "Immersive VR",
-    "email": "hr@immersive.com",
-    "phone": "123456",
-    "website": "immersive.com"
-  };
-
-  const updatedCompany = {
-    "name": "Immersive VR",
-    "email": "hr@immersive.com updated",
-    "phone": "123456",
-    "website": "immersive.com"
-  }
   let newCompanyIdCreated;
 
   describe('#POST /companies', function () {

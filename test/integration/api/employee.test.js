@@ -1,32 +1,10 @@
 const expect = require('chai').expect;
 const { app, server } = require('../../../server');
 const request = require('supertest');
+const { newEmployee, updatedEmployee, newCompany } = require('../../fixtures/mock-data');
 
 describe('Employee CRUD API', () => {
-  const newEmployee = {
-    "firstname": "Joe",
-    "lastname": "Smith",
-    "email": "joesmith@immersive.com",
-    "phone": "123456",
-    "company": "Immersive VR"
-  };
-
-  const updatedEmployee = {
-    "firstname": "Joe updated",
-    "lastname": "Smith",
-    "email": "joesmith@immersive.com",
-    "phone": "123456",
-    "company": "Immersive VR"
-  }
   let newEmployeeIdCreated, newCompanyIdCreated;
-
-  const newCompany = {
-    "name": "Immersive VR",
-    "email": "hr@immersive.com",
-    "phone": "123456",
-    "website": "immersive.com"
-  };
-
   
   it('should create a company first', function (done) {
     request(app).post('/api/companies')
