@@ -5,7 +5,7 @@ module.exports = app => {
     const router = require("express").Router();
   
     // Create a new Company
-    router.post("/", companies.create);
+    router.post("/", companies.validateCompanySchema, companies.create);
   
     // Retrieve all Companies
     router.get("/", companies.findAll);
@@ -14,7 +14,7 @@ module.exports = app => {
     router.get("/:id", companies.findOne);
   
     // Update a Company with id
-    router.put("/:id", companies.update);
+    router.put("/:id", companies.validateCompanySchema, companies.update);
   
     // Delete a Company with id
     router.delete("/:id", companies.deleteOne);

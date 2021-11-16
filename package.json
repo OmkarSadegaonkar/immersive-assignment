@@ -4,7 +4,7 @@
   "description": "This project is being developed as a small application as part of recruitment process of Immersive VR for role of Node.js developer",
   "main": "server.js",
   "scripts": {
-    "test": "mocha --recursive"
+    "test": "mocha --recursive --exit"
   },
   "repository": {
     "type": "git",

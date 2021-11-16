@@ -4,8 +4,8 @@ module.exports = app => {
   
     const router = require("express").Router();
   
-    // Create a new Company
-    router.post("/", employees.create);
+    // Create a new Employee
+    router.post("/", employees.validateEmployeeSchema, employees.create);
   
     // Retrieve all Employees
     router.get("/", employees.findAll);
@@ -14,7 +14,7 @@ module.exports = app => {
     router.get("/:id", employees.findOne);
   
     // Update a Employee with id
-    router.put("/:id", employees.update);
+    router.put("/:id", employees.validateEmployeeSchema, employees.update);
   
     // Delete a Employee with id
     router.delete("/:id", employees.deleteOne);

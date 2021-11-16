@@ -7,7 +7,6 @@ module.exports = (sequelize, Sequelize) => {
         },
         name: {
             type: Sequelize.STRING,
-            primaryKey: true,
         },
         email: {
             type: Sequelize.STRING
@@ -18,7 +17,15 @@ module.exports = (sequelize, Sequelize) => {
         website: {
             type: Sequelize.STRING
         },
-    });
+    },
+        {
+            indexes: [
+                {
+                    unique: false,
+                    fields: ['name']
+                }
+            ]
+        });
 
     return Company;
 };

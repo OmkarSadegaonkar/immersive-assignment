@@ -8,7 +8,7 @@ describe('Employee CRUD API', () => {
     "lastname": "Smith",
     "email": "joesmith@immersive.com",
     "phone": "123456",
-    "company": "immersive.com"
+    "company": "Immersive VR"
   };
 
   const updatedEmployee = {
@@ -16,9 +16,28 @@ describe('Employee CRUD API', () => {
     "lastname": "Smith",
     "email": "joesmith@immersive.com",
     "phone": "123456",
-    "company": "immersive.com"
+    "company": "Immersive VR"
   }
-  let newEmployeeIdCreated;
+  let newEmployeeIdCreated, newCompanyIdCreated;
+
+  const newCompany = {
+    "name": "Immersive VR",
+    "email": "hr@immersive.com",
+    "phone": "123456",
+    "website": "immersive.com"
+  };
+
+  
+  it('should create a company first', function (done) {
+    request(app).post('/api/companies')
+      .send(newCompany)
+      .end((err, res) => {
+        if (err) done.fail();
+        expect(res.statusCode).to.equal(200);
+        newCompanyIdCreated = res.body.id;
+        done();
+      });
+  });
 
   describe('#POST /employees', function () {
     it('should create an employee', function (done) {
@@ -89,5 +108,15 @@ describe('Employee CRUD API', () => {
           done();
         });
     });
+  });
+
+  
+  it('should delete the company at the end', function (done) {
+    request(app).delete(`/api/companies/${newCompanyIdCreated}`)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(200);
+        expect(res.body.message).to.equals('Company was deleted successfully!');
+        done();
+      });
   });
 });

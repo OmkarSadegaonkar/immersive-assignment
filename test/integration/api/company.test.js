@@ -11,8 +11,8 @@ describe('Company CRUD API', () => {
   };
 
   const updatedCompany = {
-    "name": "Immersive VR updated",
-    "email": "hr@immersive.com",
+    "name": "Immersive VR",
+    "email": "hr@immersive.com updated",
     "phone": "123456",
     "website": "immersive.com"
   }
@@ -33,7 +33,6 @@ describe('Company CRUD API', () => {
           expect(website).to.equals(newCompany.website);
           newCompanyIdCreated = id;
           done();
-          server.close();
         });
     });
 
